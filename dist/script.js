@@ -436,3 +436,57 @@ Nome:
 //doc.setFillColor(200, 220, 255); // Define a cor de fundo para azul claro (RGB)
 //doc.rect(10, 30, 50, 20, "F"); // Adiciona um retângulo com cor de fundo
 
+//-------------------------------------------------------------------------------------------------------------------------------------
+/*
+Certamente, para gerar um PDF com base nas informações inseridas no site, você pode usar a mesma abordagem,
+mas agora integrando a geração do PDF com o evento final do seu site. Aqui está um exemplo de como você
+pode fazer isso usando Vue.js:
+
+HTML:
+No seu arquivo HTML, adicione um botão ou qualquer elemento que você queira usar para acionar a geração do PDF.
+
+<div id="app">
+  <!-- Conteúdo do seu site aqui -->
+  <button @click="generatePDF">Gerar PDF</button>
+</div>
+//-------------------------------------------------------------------------------------------------------------------------------------
+Vue.js:
+Agora, no seu código Vue.js, adicione o método generatePDF para criar o PDF com base nas informações do site.
+Suponha que você tenha um objeto paciente com as informações do paciente, você pode incluir essas informações no PDF.
+
+new Vue({
+  el: "#app",
+  vuetify: new Vuetify(),
+  data() {
+    return {
+      paciente: {
+        nome: "Nome do Paciente",
+        sexo: "Masculino",
+        // Outras informações do paciente aqui
+      },
+    };
+  },
+  methods: {
+    generatePDF() {
+      const doc = new jsPDF();
+      
+      // Adiciona informações do paciente ao PDF
+      doc.setFontSize(12);
+      doc.text(`Nome do Paciente: ${this.paciente.nome}`, 10, 10);
+      doc.text(`Sexo: ${this.paciente.sexo}`, 10, 20);
+      
+      // Adiciona outras informações ao PDF conforme necessário
+      
+      // Salva o arquivo PDF com o nome 'Ficha_de_Paciente.pdf'
+      doc.save("Ficha_de_Paciente.pdf");
+    },
+  },
+});
+
+Neste exemplo, quando o botão "Gerar PDF" é clicado, ele chama o método generatePDF, que cria um novo PDF usando jsPDF
+e adiciona as informações do paciente ao PDF. Você pode adicionar outras informações da mesma forma.
+
+Certifique-se de ajustar o conteúdo, o estilo e a formatação do PDF de acordo com suas necessidades específicas.
+Além disso, você pode integrar este método com o evento final do seu site para garantir que o PDF seja gerado quando
+o usuário concluir o processo no site.
+*/
