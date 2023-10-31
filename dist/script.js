@@ -490,3 +490,57 @@ Certifique-se de ajustar o conteúdo, o estilo e a formatação do PDF de acordo
 Além disso, você pode integrar este método com o evento final do seu site para garantir que o PDF seja gerado quando
 o usuário concluir o processo no site.
 */
+
+// imagem no pdf através do mediumblob
+// ----------------------------------------------------
+// 1.Recuperar a imagem do banco de dados
+// Suponha que você tenha um método em seu servidor que recupere os dados da imagem do banco de dados. Por exemplo, em Node.js usando o MySQL:
+// const mysql = require('mysql');
+// const connection = mysql.createConnection({
+//   host: 'seu-host',
+//   user: 'seu-usuario',
+//   password: 'sua-senha',
+//   database: 'sua-base-de-dados'
+// });
+
+// connection.connect();
+
+// const query = 'SELECT imagem FROM tabela WHERE id = ?';
+// const id = 1; // Substitua isso pelo ID da imagem que você deseja recuperar
+
+// connection.query(query, [id], (error, results) => {
+//   if (error) throw error;
+
+//   const imagemBlob = results[0].imagem; // Os dados da imagem em formato de buffer
+//   // Agora você pode passar `imagemBlob` para o frontend ou convertê-lo em uma URL de dados
+// });
+
+// connection.end();
+// --------------------------------------
+// 2.Converter o blob em uma URL de dados:
+// Você pode usar a função`btoa()`para converter os dados do blob em uma string base64 e, em seguida, criar uma URL de dados:
+// const blobToDataURL = (blob) => {
+//   return new Promise((resolve, reject) => {
+//     const reader = new FileReader();
+//     reader.onloadend = () => resolve(reader.result);
+//     reader.onerror = reject;
+//     reader.readAsDataURL(blob);
+//   });
+// };
+
+// // Suponha que `imagemBlob` seja o seu buffer de imagem recuperado do banco de dados
+// blobToDataURL(imagemBlob).then((dataURL) => {
+//   // `dataURL` agora contém a URL de dados da imagem que você pode usar no frontend
+// });
+// ------------------------------
+// 3.Inserir a imagem no PDF:
+// Se você estiver usando uma biblioteca como jsPDF para gerar o PDF, você pode adicionar a imagem usando a URL de dados:
+// const doc = new jsPDF();
+
+// // Suponha que `dataURL` seja a URL de dados da imagem que você recuperou anteriormente
+// const img = new Image();
+// img.onload = () => {
+//   doc.addImage(img, 'JPEG', 10, 10, 50, 50); // Adiciona a imagem ao PDF
+//   doc.save('arquivo.pdf');
+// };
+// img.src = dataURL;
