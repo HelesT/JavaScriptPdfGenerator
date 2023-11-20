@@ -1,39 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="pt-br" >
 <head>
   <meta charset="UTF-8">
-  <title>CodePen - PDF Generator using jsPDF  - Vue</title>
+  <title>PDF GENERATOR</title>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900'>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@mdi/font@3.x/css/materialdesignicons.min.css'>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css'>
-
+  <style>
+    .botao-pdf{
+      border: 1px solid black;
+    }
+  </style>
 </head>
 <body>
+
 <!-- partial:index.partial.html -->
 <div id="app">
-  <v-app>
-    <v-container>
-      <v-row>
-        <v-col>
-          <h1>{{ heading }}</h1>
-          <v-btn color='orange' @click='generatePDF'>Generate PDF</v-btn>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col>
-          <ul>
-            <li v-for='item in items'>{{ item.title }} - {{ item.body }}</li>
-          </ul>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
+  <h1>Batata Frita</h1>
+  <button class="botao-pdf" @click="generatePDF">Gerar PDF</button>
+  <button class="botao-pdf" onclick="obterDados()">Obter Dados</button>
 </div>
+
 <!-- partial -->
-  <script src='https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js'></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.4/jspdf.plugin.autotable.min.js'></script><script  src="dist/script.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.4/jspdf.plugin.autotable.min.js'></script><script  src="JS/script.js"></script>
 
 </body>
 </html>
