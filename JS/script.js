@@ -1,30 +1,42 @@
-function obterDados() {
-  $.ajax({
-    type: 'GET',
-    url: 'PHP/obterDados.php',
-    dataType: 'json',
-    success: function(data) {
-
-      data.forEach(function(item) {
-        alert(item.senha_cadastro);
-      });
-    }
-  });
-}
-
-
 
 new Vue({
   el: "#app",
   vuetify: new Vuetify(),
   data() {
     return {
-       additionalInfo: 
-`OLA MUNDO`
-
+      additionalInfo: ""
     };
   },
+  created() {
+    this.obterDados();
+  },
   methods: {
+    obterDados() {
+      const id = "5";
+      $.ajax({
+         type: 'GET',
+         url: 'PHP/obterDados.php',
+         dataType: 'json',
+         data: {
+            id: id
+         },
+         success: (data) => {
+            data.forEach((item) => {
+               this.additionalInfo += "Data: " + item.data_paciente + "\n";
+               this.additionalInfo += "RG/CPF: " + item.rg_cpf_paciente + "\n";
+               this.additionalInfo += "Idade: " + item.idade_paciente + "\n";
+               this.additionalInfo += "Nome: " + item.nome_paciente + "\n";
+               this.additionalInfo += "Sexo: " + item.sexo_paciente + "\n";
+               this.additionalInfo += "Nome do Hospital: " + item.nome_hospital_paciente + "\n";
+              //  this.additionalInfo += "" + item.exemplo + "\n";
+            });
+         },
+         error: function (xhr, status, error) {
+            console.error("Erro na requisição AJAX: " + status + " - " + error);
+         }
+      });
+   },
+
     generatePDF() {
       const doc = new jsPDF({
         orientation: "portrait",
