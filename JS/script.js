@@ -126,7 +126,26 @@ new Vue({
                                                       this.additionalInfo += "Temperatura: " + item.Temperatura + "\n";
                                                       this.additionalInfo += "Anormal: " + item.Anormal + "\n";
                                                      //  this.additionalInfo += "" + item.exemplo + "\n";
-                                                     
+                                                     $.ajax({
+                                                      type: 'GET',
+                                                      url: 'PHP/localizacao_traumas.php',
+                                                      dataType: 'json',
+                                                      data: {
+                                                         id: id
+                                                      },
+                                                      success: (data) => {
+                                                         data.forEach((item) => {
+                                                            this.additionalInfo += "Ferimentos: " + item.texto_trauma + "\n";
+                                                            this.additionalInfo += "Queimadura: " + item.queimadura + "\n";
+                                                            this.additionalInfo += "SegSv: " + item.SegSv + "\n";
+                                                           //  this.additionalInfo += "" + item.exemplo + "\n";
+                                                           
+                                                         });
+                                                      },
+                                                      error: function (xhr, status, error) {
+                                                         console.error("Erro na requisição AJAX: " + status + " - " + error);
+                                                      }
+                                                   });
                                                    });
                                                 },
                                                 error: function (xhr, status, error) {
