@@ -1,4 +1,4 @@
-
+// arrumar procedimentos_efetuados e sinais_e_sintomas
 new Vue({
   el: "#app",
   vuetify: new Vuetify(),
@@ -139,7 +139,141 @@ new Vue({
                                                             this.additionalInfo += "Queimadura: " + item.queimadura + "\n";
                                                             this.additionalInfo += "SegSv: " + item.SegSv + "\n";
                                                            //  this.additionalInfo += "" + item.exemplo + "\n";
-                                                           
+                                                           $.ajax({
+                                                            type: 'GET',
+                                                            url: 'PHP/objetos_recolhidos.php',
+                                                            dataType: 'json',
+                                                            data: {
+                                                               id: id
+                                                            },
+                                                            success: (data) => {
+                                                               data.forEach((item) => {
+                                                                  this.additionalInfo += "Objeto Recolhido: " + item.TextoDentroObj + "\n";
+                                                                  
+                                                                 //  this.additionalInfo += "" + item.exemplo + "\n";
+                                                                 $.ajax({
+                                                                  type: 'GET',
+                                                                  url: 'PHP/sinais_e_sintomas.php',
+                                                                  dataType: 'json',
+                                                                  data: {
+                                                                     id: id
+                                                                  },
+                                                                  success: (data) => {
+                                                                     data.forEach((item) => {
+                                                                        this.additionalInfo += "Sinais e Sintomas: " + item.TodosOsValoresSeS + "\n";
+                                                                        
+                                                                       //  this.additionalInfo += "" + item.exemplo + "\n";
+                                                                       $.ajax({
+                                                                        type: 'GET',
+                                                                        url: 'PHP/procedimentos_efetuados.php',
+                                                                        dataType: 'json',
+                                                                        data: {
+                                                                           id: id
+                                                                        },
+                                                                        success: (data) => {
+                                                                           data.forEach((item) => {
+                                                                              this.additionalInfo += "Procedimentos Efetuados: " + item.TodosOsValoresPef + "\n";
+                                                                              
+                                                                             //  this.additionalInfo += "" + item.exemplo + "\n";
+                                                                             $.ajax({
+                                                                              type: 'GET',
+                                                                              url: 'PHP/material_utilizados_descartavel.php',
+                                                                              dataType: 'json',
+                                                                              data: {
+                                                                                 id: id
+                                                                              },
+                                                                              success: (data) => {
+                                                                                 data.forEach((item) => {
+                                                                                    this.additionalInfo += "Atadura: " + item.Atadura1 + "\n";
+                                                                                    this.additionalInfo += "Catéter TP. óculos: " + item.CateterTpOculos + "\n";
+                                                                                    this.additionalInfo += "Compressa Comum: " + item.CompressaComum + "\n";
+                                                                                    this.additionalInfo += "Kit's: " + item.Kit1 + "\n";
+                                                                                    this.additionalInfo += "Luvas Descartáveis: " + item.LuvasDescartaveis + "\n";
+                                                                                    this.additionalInfo += "Mascaras Descartáveis: " + item.MascarasDesc + "\n";
+                                                                                    this.additionalInfo += "Manta Alumiada: " + item.MantaAlumiada + "\n";
+                                                                                    this.additionalInfo += "Pás Do Dea: " + item.PasDoDea + "\n";
+                                                                                    this.additionalInfo += "Sonda De Aspiração: " + item.SondaDeAspiracao + "\n";
+                                                                                    this.additionalInfo += "Soro Fisiológico: " + item.SoroFisiologico + "\n";
+                                                                                    this.additionalInfo += "Talas: " + item.Tala1 + "\n";
+                                                                                    this.additionalInfo += "Outro: " + item.OutroText + "\n";
+                                                                                   //  this.additionalInfo += "" + item.exemplo + "\n";
+                                                                                   $.ajax({
+                                                                                    type: 'GET',
+                                                                                    url: 'PHP/materiais_utilizados_deixados_hospital.php',
+                                                                                    dataType: 'json',
+                                                                                    data: {
+                                                                                       id: id
+                                                                                    },
+                                                                                    success: (data) => {
+                                                                                       data.forEach((item) => {
+                                                                                          this.additionalInfo += "Base Estabilizador: " + item.BaseEstabilizador + "\n";
+                                                                                          this.additionalInfo += "Colar1: " + item.Colar1 + "\n";
+                                                                                          this.additionalInfo += "Colar2: " + item.Colar2 + "\n";
+                                                                                          this.additionalInfo += "Kit's: " + item.Kit1 + "\n";
+                                                                                          this.additionalInfo += "Coxins Estabiliza: " + item.CoxinsStab + "\n";
+                                                                                          this.additionalInfo += "KED: " + item.KED + "\n";
+                                                                                          this.additionalInfo += "Maca Rigida: " + item.MacaRigida + "\n";
+                                                                                          this.additionalInfo += "Tirante Aranha: " + item.TiranteAranha + "\n";
+                                                                                          this.additionalInfo += "Sonda Aspiração: " + item.SondaAspiracao + "\n";
+                                                                                          this.additionalInfo += "Cânula: " + item.Canula + "\n";
+                                                                                          this.additionalInfo += "Outro: " + item.OutroMUB + "\n";
+                                                                                          //this.additionalInfo += "Outro: " + item.OutroText + "\n";
+                                                                                         //  this.additionalInfo += "" + item.exemplo + "\n";
+                                                                                         $.ajax({
+                                                                                          type: 'GET',
+                                                                                          url: 'PHP/anamnese.php',
+                                                                                          dataType: 'json',
+                                                                                          data: {
+                                                                                             id: id
+                                                                                          },
+                                                                                          success: (data) => {
+                                                                                             data.forEach((item) => {
+                                                                                                //this.additionalInfo += "id_anamnese: " + item.id_anamnese + "\n";
+                                                                                                this.additionalInfo += "O que aconteceu(sinais e sintomas): " + item.ocorrido_anamnese + "\n";
+                                                                                                this.additionalInfo += "Aconteceu outras vezes?" + item.ocorrencia_anamnese + "\n";
+                                                                                                this.additionalInfo += "A quanto tempo isso aconteceu? " + item.aconteceu_anamnese + "\n";
+                                                                                                this.additionalInfo += "Possui algum problema de saúde? " + item.problema_saude_anamnese + "\n";
+                                                                                                this.additionalInfo += "Faz uso de medicação? " + item.medicamento_anamnese + "\n";
+                                                                                                this.additionalInfo += "Alérgico a algo? " + item.alergia_anamnese + "\n";
+                                                                                                this.additionalInfo += "Ingeriu alimento ou liquido em 6h? " + item.liquido_anamnese + "\n";
+                                                                                               //  this.additionalInfo += "" + item.exemplo + "\n";
+                                                                                               
+                                                                                             });
+                                                                                          },
+                                                                                          error: function (xhr, status, error) {
+                                                                                             console.error("Erro na requisição AJAX: " + status + " - " + error);
+                                                                                          }
+                                                                                       });
+                                                                                       });
+                                                                                    },
+                                                                                    error: function (xhr, status, error) {
+                                                                                       console.error("Erro na requisição AJAX: " + status + " - " + error);
+                                                                                    }
+                                                                                 });
+                                                                                 });
+                                                                              },
+                                                                              error: function (xhr, status, error) {
+                                                                                 console.error("Erro na requisição AJAX: " + status + " - " + error);
+                                                                              }
+                                                                           });
+                                                                           });
+                                                                        },
+                                                                        error: function (xhr, status, error) {
+                                                                           console.error("Erro na requisição AJAX: " + status + " - " + error);
+                                                                        }
+                                                                     });
+                                                                     });
+                                                                  },
+                                                                  error: function (xhr, status, error) {
+                                                                     console.error("Erro na requisição AJAX: " + status + " - " + error);
+                                                                  }
+                                                               });
+                                                               });
+                                                            },
+                                                            error: function (xhr, status, error) {
+                                                               console.error("Erro na requisição AJAX: " + status + " - " + error);
+                                                            }
+                                                         });
                                                          });
                                                       },
                                                       error: function (xhr, status, error) {
