@@ -1,4 +1,5 @@
 // arrumar procedimentos_efetuados e sinais_e_sintomas
+
 new Vue({
   el: "#app",
   vuetify: new Vuetify(),
@@ -12,7 +13,8 @@ new Vue({
   },
   methods: {
     obterDados() {
-      const id = "4";
+      var id = id_paciente;
+      console.log("batata");
       $.ajax({
          type: 'GET',
          url: 'PHP/obterDados.php',
@@ -440,7 +442,7 @@ new Vue({
 
    
 
-    generatePDF() {
+    generatePDF() {  
       const doc = new jsPDF({
         orientation: "portrait",
         unit: "in",
