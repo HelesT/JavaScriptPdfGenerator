@@ -17,7 +17,6 @@ function gerarPDF(){
         data.forEach((item) => {
           ImagemRecusa = item.assinatura_recusa;
         })
-        console.log("sucesso 1");
     }
   })
 }
