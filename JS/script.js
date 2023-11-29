@@ -1,8 +1,11 @@
 function gerarPDF(){
 
+{//VARIAVEIS GLOBAIS
   var idPaciente = document.getElementById('idUsuario');
   var ImagemRecusa;
+}
 
+{//OBTEM O ARQUIVO DE IMAGEM
   $.ajax({
     type: 'GET',
     url: 'PHP/obterDados.php',
@@ -17,26 +20,29 @@ function gerarPDF(){
         console.log("sucesso 1");
     }
   })
+}
 
+{//CHAMAR gerarPDF2 EM 1 SEGUNDO
   setTimeout(() => {
     gerarPDF2();
   }, 1000);
+}
 
-  function gerarPDF2(){
+  function gerarPDF2(){//OBTEM OS DADOS E GERA O PDF
     new Vue({
       el: "#app",
       vuetify: new Vuetify(),
-      data() {
+      data() {//DADOS DO PDF
         return {
           additionalInfo: "",
           imageBase64: ImagemRecusa,
         };
       },
-      created() {
+      created() {//FUNÇÕES DO PDF
         this.obterDados();
       },
       methods: {
-        obterDados() {
+        obterDados(){//OBTEM DADOS DE TEXTO E ADICIONA AO additionalInfo
   
           $.ajax({
             type: 'GET',
@@ -50,7 +56,6 @@ function gerarPDF(){
                   this.additionalInfo += item.cpf_paciente;
                   //this.additionalInfo += "" + item.exemplo + "\n";
                 })
-                console.log("sucesso 2")
             }
           })
   
@@ -58,7 +63,8 @@ function gerarPDF(){
             this.generatePDF();
           }, 1000);
         },
-        generatePDF() {
+
+        generatePDF(){//GERA O PDF
           const doc = new jsPDF({
             orientation: "portrait",
             unit: "in",
@@ -95,6 +101,7 @@ function gerarPDF(){
     });
   }
 }
+
 //Definir Tamanho e Estilo da Fonte:
 //doc.setFontSize(16); // Define o tamanho da fonte para 16 pontos
 //doc.setFont("times", "italic"); // Define a fonte para Times Italic
@@ -126,110 +133,3 @@ function gerarPDF(){
 //doc.rect(10, 30, 50, 20, "F"); // Adiciona um retângulo com cor de fundo
 
 //-------------------------------------------------------------------------------------------------------------------------------------
-/*
-Certamente, para gerar um PDF com base nas informações inseridas no site, você pode usar a mesma abordagem,
-mas agora integrando a geração do PDF com o evento final do seu site. Aqui está um exemplo de como você
-pode fazer isso usando Vue.js:
-
-HTML:
-No seu arquivo HTML, adicione um botão ou qualquer elemento que você queira usar para acionar a geração do PDF.
-
-<div id="app">
-  <!-- Conteúdo do seu site aqui -->
-  <button @click="generatePDF">Gerar PDF</button>
-</div>
-//-------------------------------------------------------------------------------------------------------------------------------------
-Vue.js:
-Agora, no seu código Vue.js, adicione o método generatePDF para criar o PDF com base nas informações do site.
-Suponha que você tenha um objeto paciente com as informações do paciente, você pode incluir essas informações no PDF.
-
-new Vue({
-  el: "#app",
-  vuetify: new Vuetify(),
-  data() {
-    return {
-      paciente: {
-        nome: "Nome do Paciente",
-        sexo: "Masculino",
-        // Outras informações do paciente aqui
-      },
-    };
-  },
-  methods: {
-    generatePDF() {
-      const doc = new jsPDF();
-      
-      // Adiciona informações do paciente ao PDF
-      doc.setFontSize(12);
-      doc.text(`Nome do Paciente: ${this.paciente.nome}`, 10, 10);
-      doc.text(`Sexo: ${this.paciente.sexo}`, 10, 20);
-      
-      // Adiciona outras informações ao PDF conforme necessário
-      
-      // Salva o arquivo PDF com o nome 'Ficha_de_Paciente.pdf'
-      doc.save("Ficha_de_Paciente.pdf");
-    },
-  },
-});
-
-Neste exemplo, quando o botão "Gerar PDF" é clicado, ele chama o método generatePDF, que cria um novo PDF usando jsPDF
-e adiciona as informações do paciente ao PDF. Você pode adicionar outras informações da mesma forma.
-
-Certifique-se de ajustar o conteúdo, o estilo e a formatação do PDF de acordo com suas necessidades específicas.
-Além disso, você pode integrar este método com o evento final do seu site para garantir que o PDF seja gerado quando
-o usuário concluir o processo no site.
-*/
-
-// imagem no pdf através do mediumblob
-// ----------------------------------------------------
-// 1.Recuperar a imagem do banco de dados
-// Suponha que você tenha um método em seu servidor que recupere os dados da imagem do banco de dados. Por exemplo, em Node.js usando o MySQL:
-// const mysql = require('mysql');
-// const connection = mysql.createConnection({
-//   host: 'seu-host',
-//   user: 'seu-usuario',
-//   password: 'sua-senha',
-//   database: 'sua-base-de-dados'
-// });
-
-// connection.connect();
-
-// const query = 'SELECT imagem FROM tabela WHERE id = ?';
-// const id = 1; // Substitua isso pelo ID da imagem que você deseja recuperar
-
-// connection.query(query, [id], (error, results) => {
-//   if (error) throw error;
-
-//   const imagemBlob = results[0].imagem; // Os dados da imagem em formato de buffer
-//   // Agora você pode passar `imagemBlob` para o frontend ou convertê-lo em uma URL de dados
-// });
-
-// connection.end();
-// --------------------------------------
-// 2.Converter o blob em uma URL de dados:
-// Você pode usar a função`btoa()`para converter os dados do blob em uma string base64 e, em seguida, criar uma URL de dados:
-// const blobToDataURL = (blob) => {
-//   return new Promise((resolve, reject) => {
-//     const reader = new FileReader();
-//     reader.onloadend = () => resolve(reader.result);
-//     reader.onerror = reject;
-//     reader.readAsDataURL(blob);
-//   });
-// };
-
-// // Suponha que `imagemBlob` seja o seu buffer de imagem recuperado do banco de dados
-// blobToDataURL(imagemBlob).then((dataURL) => {
-//   // `dataURL` agora contém a URL de dados da imagem que você pode usar no frontend
-// });
-// ------------------------------
-// 3.Inserir a imagem no PDF:
-// Se você estiver usando uma biblioteca como jsPDF para gerar o PDF, você pode adicionar a imagem usando a URL de dados:
-// const doc = new jsPDF();
-
-// // Suponha que `dataURL` seja a URL de dados da imagem que você recuperou anteriormente
-// const img = new Image();
-// img.onload = () => {
-//   doc.addImage(img, 'JPEG', 10, 10, 50, 50); // Adiciona a imagem ao PDF
-//   doc.save('arquivo.pdf');
-// };
-// img.src = dataURL;
