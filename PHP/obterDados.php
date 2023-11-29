@@ -3,7 +3,7 @@ include("conecta.php");
 
 $id = $_GET['id'];  // Adicione ponto e vírgula no final desta linha
 
-$requisicao = $pdo->prepare("SELECT * FROM tabela_paciente WHERE cpf_paciente = :id");
+$requisicao = $pdo->prepare("SELECT * FROM termo_recusa WHERE cpf_paciente = :id");
 $requisicao->bindParam(":id", $id);  // Adicione ":" antes de "id"
 $requisicao->execute();
 

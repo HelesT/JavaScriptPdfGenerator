@@ -1,72 +1,100 @@
-// arrumar procedimentos_efetuados e sinais_e_sintomas
+function gerarPDF(){
 
-new Vue({
-  el: "#app",
-  vuetify: new Vuetify(),
-  data() {
-    return {
-      additionalInfo: ""
-    };
-  },
-  created() {
-    this.obterDados();
-  },
-  methods: {
+  var idPaciente = document.getElementById('idUsuario');
+  var ImagemRecusa;
 
-   obterDados() {
-      var id = id_paciente;
-      console.log("batata");
-
-      $.ajax({
-         type: 'GET',
-         url: 'PHP/obterDados.php',
-         dataType: 'json',
-         data: {
-            id: id
-         },
-         success: (data) => {
-            data.forEach((item) => {
-              //  this.additionalInfo += "" + item.exemplo + "\n";
-            })
-         }
-      }) 
-      
-   },
-
-   
-
-    generatePDF() {  
-      const doc = new jsPDF({
-        orientation: "portrait",
-        unit: "in",
-        format: "letter",
-      });
-
-      // Divide o conteúdo em partes para acomodar em várias páginas
-      const lines = this.additionalInfo.split('\n');
-      const lineHeight = 12 / 72; // Altura de linha em polegadas
-      const pageHeight = 11; // Altura da página em polegadas
-      let y = 1; // Posição Y inicial
-
-      lines.forEach(line => {
-        // Verifica se a próxima linha cabe na página atual
-        if (y + lineHeight > pageHeight) {
-          // Adiciona uma nova página
-          doc.addPage();
-          y = 1;
-        }
-
-        // Adiciona a linha ao PDF
-        doc.setFontSize(12);
-        doc.text(line, 0.5, y);
-        y += lineHeight;
-      });
-
-      // Salva o arquivo PDF com o nome 'Ficha_de_Bombeiro.pdf'
-      doc.save("Ficha_de_Bombeiro.pdf");
+  $.ajax({
+    type: 'GET',
+    url: 'PHP/obterDados.php',
+    dataType: 'json',
+    data: {
+        id: idPaciente.value
     },
-  },
-});
+    success: (data) => {
+        data.forEach((item) => {
+          ImagemRecusa = item.assinatura_recusa;
+        })
+        console.log("sucesso 1");
+    }
+  })
+
+  setTimeout(() => {
+    gerarPDF2();
+  }, 1000);
+
+  function gerarPDF2(){
+    new Vue({
+      el: "#app",
+      vuetify: new Vuetify(),
+      data() {
+        return {
+          additionalInfo: "",
+          imageBase64: ImagemRecusa,
+        };
+      },
+      created() {
+        this.obterDados();
+      },
+      methods: {
+        obterDados() {
+  
+          $.ajax({
+            type: 'GET',
+            url: 'PHP/obterDados.php',
+            dataType: 'json',
+            data: {
+                id: idPaciente.value
+            },
+            success: (data) => {
+                data.forEach((item) => {
+                  this.additionalInfo += item.cpf_paciente;
+                  //this.additionalInfo += "" + item.exemplo + "\n";
+                })
+                console.log("sucesso 2")
+            }
+          })
+  
+          setTimeout(() => {
+            this.generatePDF();
+          }, 1000);
+        },
+        generatePDF() {
+          const doc = new jsPDF({
+            orientation: "portrait",
+            unit: "in",
+            format: "letter",
+          });
+    
+          const lines = this.additionalInfo.split('\n');
+          const lineHeight = 12 / 72;
+          const pageHeight = 11;
+          let y = 1;
+    
+          lines.forEach(line => {
+            if (y + lineHeight > pageHeight) {
+              doc.addPage();
+              y = 1;
+            }
+    
+            doc.setFontSize(12);
+            doc.text(line, 0.5, y);
+            y += lineHeight;
+          });
+    
+          // Adiciona a imagem no final do PDF
+          const imgProps = doc.getImageProperties(this.imageBase64);
+          const imgWidth = 2; // Largura da imagem em polegadas
+          const imgHeight = imgProps.height * imgWidth / imgProps.width;
+    
+          doc.addPage();
+          doc.addImage(this.imageBase64, 'JPEG', 0.5, 0.5, imgWidth, imgHeight);
+    
+          doc.save("Ficha_de_Bombeiro.pdf");
+        },
+      },
+    });
+  }
+}
 //Definir Tamanho e Estilo da Fonte:
 //doc.setFontSize(16); // Define o tamanho da fonte para 16 pontos
 //doc.setFont("times", "italic"); // Define a fonte para Times Italic

@@ -16,9 +16,9 @@
 
 <!-- partial:index.partial.html -->
 <div id="app">
-  <h1>Gerar PDF do paciente (nome)</h1>
-  <button class="botao-pdf" id="paciente4" value="4" @click="generatePDF">Gerar PDF</button>
-  <iframe id="pdfViewer" width="100%" height="600px"></iframe>
+  <h1>Gerar PDF do paciente</h1>
+  <button class="botao-pdf" onclick="gerarPDF()">Gerar PDF</button>
+  <input type="text" id="idUsuario" style="border: 1px solid black;" placeholder="Código do usuário">
 </div>
 
 <!-- partial -->
@@ -26,7 +26,8 @@
 <script src='https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.4/jspdf.plugin.autotable.min.js'></script><script  src="JS/script.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.2.4/jspdf.plugin.autotable.min.js'></script>
+<script  src="JS/script.js"></script>
 
 </body>
 </html>
