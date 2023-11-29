@@ -1,8 +1,8 @@
 function gerarPDF(){
 
 {//VARIAVEIS GLOBAIS
-  var idPaciente = document.getElementById('idUsuario');
-  var ImagemRecusa = [];
+  var idPaciente = document.getElementById('idUsuario');//Obtem a chave primaria
+  var ImagemRecusa = [];//Armazena Imagens
 }
 
 {//OBTEM O ARQUIVO DE IMAGEM
@@ -22,7 +22,7 @@ function gerarPDF(){
   })
 }
 
-{//CHAMAR gerarPDF2 EM 1 SEGUNDO
+{//CHAMAR gerarPDF2() EM 1 SEGUNDO
   setTimeout(() => {
     gerarPDF2();
   }, 1000);
@@ -123,34 +123,34 @@ function gerarPDF(){
   }
 }
 
-//Definir Tamanho e Estilo da Fonte:
-//doc.setFontSize(16); // Define o tamanho da fonte para 16 pontos
-//doc.setFont("times", "italic"); // Define a fonte para Times Italic
-//doc.setFontType("bold"); // Define o estilo da fonte para negrito
+{//OUTRAS FORMATAÇÕES DO PDF
+  //Definir Tamanho e Estilo da Fonte:
+  //doc.setFontSize(16); // Define o tamanho da fonte para 16 pontos
+  //doc.setFont("times", "italic"); // Define a fonte para Times Italic
+  //doc.setFontType("bold"); // Define o estilo da fonte para negrito
 
-//Definir Cor do Texto:
-//doc.setTextColor(255, 0, 0); // Define a cor do texto para vermelho (RGB)
+  //Definir Cor do Texto:
+  //doc.setTextColor(255, 0, 0); // Define a cor do texto para vermelho (RGB)
 
-//Adicionar Texto ao PDF:
-//doc.text("Texto do PDF", 10, 20); // Adiciona texto na posição (10, 20)
+  //Adicionar Texto ao PDF:
+  //doc.text("Texto do PDF", 10, 20); // Adiciona texto na posição (10, 20)
 
-//Adicionar Retângulos e Formas:
-//doc.rect(10, 30, 50, 20); // Adiciona um retângulo na posição (10, 30) com largura 50 e altura 20
-//doc.triangle(60, 30, 80, 30, 70, 50, "FD"); // Adiciona um triângulo
-//doc.circle(100, 40, 10); // Adiciona um círculo na posição (100, 40) com raio 10
+  //Adicionar Retângulos e Formas:
+  //doc.rect(10, 30, 50, 20); // Adiciona um retângulo na posição (10, 30) com largura 50 e altura 20
+  //doc.triangle(60, 30, 80, 30, 70, 50, "FD"); // Adiciona um triângulo
+  //doc.circle(100, 40, 10); // Adiciona um círculo na posição (100, 40) com raio 10
 
-//Adicionar Imagens ao PDF:
-//const imgData = "data:image/jpeg;base64,/9j/4AAQSk..."; // URL da imagem ou dados base64
-//doc.addImage(imgData, "JPEG", 10, 10, 50, 50); // Adiciona uma imagem na posição (10, 10) com largura 50 e altura 50
+  //Adicionar Imagens ao PDF:
+  //const imgData = "data:image/jpeg;base64,/9j/4AAQSk..."; // URL da imagem ou dados base64
+  //doc.addImage(imgData, "JPEG", 10, 10, 50, 50); // Adiciona uma imagem na posição (10, 10) com largura 50 e altura 50
 
-//Adicionar Quebras de Página:
-//doc.addPage(); // Adiciona uma nova página ao PDF
+  //Adicionar Quebras de Página:
+  //doc.addPage(); // Adiciona uma nova página ao PDF
 
-//Adicionar Links:
-//doc.textWithLink("Clique aqui", 10, 20, { url: "https://www.exemplo.com" }); // Adiciona um link na posição (10, 20)
+  //Adicionar Links:
+  //doc.textWithLink("Clique aqui", 10, 20, { url: "https://www.exemplo.com" }); // Adiciona um link na posição (10, 20)
 
-//Definir Cor de Fundo:
-//doc.setFillColor(200, 220, 255); // Define a cor de fundo para azul claro (RGB)
-//doc.rect(10, 30, 50, 20, "F"); // Adiciona um retângulo com cor de fundo
-
-//-------------------------------------------------------------------------------------------------------------------------------------
+  //Definir Cor de Fundo:
+  //doc.setFillColor(200, 220, 255); // Define a cor de fundo para azul claro (RGB)
+  //doc.rect(10, 30, 50, 20, "F"); // Adiciona um retângulo com cor de fundo
+}
